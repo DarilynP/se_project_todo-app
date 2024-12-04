@@ -2,8 +2,11 @@ class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
+    this._inactiveButtonClass = config.inactiveButtonClass;
+    this._submitButtonSelector = config.submitButtonSelector;
   }
 
+  // Check the validity of each input field and show or clear error messages
   _checkInputValidity(inputElement) {
     const errorMessage = inputElement.validationMessage;
     const errorElement = this._formElement.querySelector(
@@ -16,6 +19,21 @@ class FormValidator {
     }
   }
 
+  // Enable or disable the submit button based on form validity
+  _toggleButtonState(inputList) {
+    const isFormValid = inputList.every(
+      (inputElement) => inputElement.validity.valid
+    );
+    if (isFormValid) {
+      this._buttonElement.disabled = false;
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
+    } else {
+      this._buttonElement.disabled = true;
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+    }
+  }
+
+  // Add event listeners to input fields for validation and button state toggling
   _setEventListeners() {
     const inputList = Array.from(
       this._formElement.querySelectorAll(this._config.inputSelector)
@@ -25,34 +43,43 @@ class FormValidator {
       return;
     }
 
-    const buttonElement = this._formElement.querySelector(
+    this._buttonElement = this._formElement.querySelector(
       this._config.submitButtonSelector
     );
 
+    // Add 'input' event listener to each input field
     inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._checkInputValidity(inputElement); // Check validity of the input
+        this._toggleButtonState(inputList); // Toggle submit button state
       });
     });
   }
 
-  _toggleButtonState(inputList, buttonElement) {
-    const isFormValid = inputList.every(
-      (inputElement) => inputElement.validity.valid
+  // Reset validation state (clear errors and disable the submit button)
+  _resetValidation() {
+    const inputList = Array.from(
+      this._formElement.querySelectorAll(this._config.inputSelector)
     );
-    if (isFormValid) {
-      buttonElement.removeAttribute("disabled");
-    } else {
-      buttonElement.setAttribute("disabled", "true");
-    }
+    inputList.forEach((inputElement) => {
+      const errorElement = this._formElement.querySelector(
+        `#${inputElement.id}-error`
+      );
+      errorElement.textContent = ""; // Clear error messages
+    });
+    this._buttonElement.disabled = true;
+    this._buttonElement.classList.add(this._inactiveButtonClass); // Disable button
+    this._formElement.reset();
   }
 
+  // Initialize validation by adding the necessary event listeners
   enableValidation() {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
+      this._resetValidation(); // Reset form validation on submit
     });
-    this._setEventListeners(this._formElement);
+
+    this._setEventListeners(); // Set up event listeners for inputs
   }
 }
 

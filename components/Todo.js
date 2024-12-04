@@ -2,6 +2,7 @@ class Todo {
   constructor(data, selector) {
     this._data = data;
     this._templateElement = document.querySelector(selector); // Store the template element reference
+    this._date = data.date;
   }
 
   _getTemplate() {
@@ -9,28 +10,8 @@ class Todo {
     //const todoElement = template.content.cloneNode(true); // Clone the template's content
     const todoElement = template.content.querySelector(".todo").cloneNode(true);
 
-    // Select elements within the cloned content
-    this._todoCheckboxElement = todoElement.querySelector(".todo__completed");
-    this._deleteButtonElement = todoElement.querySelector(
-      ".todo__delete-button"
-    );
-
-    if (!this._deleteButtonElement) {
-      console.error("Delete button not found in cloned template!");
-    }
-
     return todoElement;
   }
-
-  //   _deleteTodo() {
-  //     // Assuming `this._todoElement` refers to the entire todo item element
-  //     if (this._todoElement && this._todoElement instanceof HTMLElement) {
-  //       console.log("Deleting:", this._todoElement);
-  //       this._todoElement.remove(); // Remove the todo from the DOM
-  //     } else {
-  //       console.error("Todo element not found for deletion!");
-  //     }
-  //   }
 
   _deleteTodo = () => {
     this._todoElement.remove();
@@ -67,6 +48,18 @@ class Todo {
     this._todoLabel.setAttribute("for", `todo-${this._data.id}`);
   }
 
+  _generateDateElement() {
+    this._dateElement = this._todoElement.querySelector(".todo__date");
+    const dueDate = new Date(this._date);
+    if (!isNaN(dueDate)) {
+      this._dateElement.textContent = `Due: ${dueDate.toLocaleString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })}`;
+    }
+  }
+
   getView() {
     this._todoElement = this._getTemplate(); // Get the template and clone it
     if (!this._todoElement) {
@@ -75,7 +68,11 @@ class Todo {
     }
     const todoNameElement = this._todoElement.querySelector(".todo__name");
     const todoDate = this._todoElement.querySelector(".todo__date");
-    const todoDeleteButton = this._todoElement.querySelector(
+
+    // Select elements within the cloned content
+    this._todoCheckboxElement =
+      this._todoElement.querySelector(".todo__completed");
+    this._deleteButtonElement = this._todoElement.querySelector(
       ".todo__delete-button"
     );
 
@@ -83,6 +80,7 @@ class Todo {
     todoDate.textContent = this._data.date; // Assuming you have a date in your data
 
     this._generateCheckboxElement();
+    this._generateDateElement();
     this._setEventListeners();
 
     return this._todoElement;
