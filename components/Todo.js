@@ -22,7 +22,7 @@ class Todo {
     // Set up checkbox change handler to toggle completion status
     if (this._todoCheckboxElement) {
       this._todoCheckboxElement.addEventListener("change", () => {
-        this._data.completed = !this._data.completed;
+        this._data.completed = !this.data.completed;
         console.log(this._data.completed);
       });
     } else {
@@ -30,8 +30,8 @@ class Todo {
     }
 
     // Set up delete button handler
-    if (this._deleteButtonElement) {
-      this._deleteButtonElement.addEventListener("click", () => {
+    if (this.deleteButtonElement) {
+      this.deleteButtonElement.addEventListener("click", () => {
         this._deleteTodo(); // Call delete function when delete button is clicked
       });
     } else {
@@ -70,9 +70,8 @@ class Todo {
     const todoDate = this._todoElement.querySelector(".todo__date");
 
     // Select elements within the cloned content
-    this._todoCheckboxElement =
-      this._todoElement.querySelector(".todo__completed");
-    this._deleteButtonElement = this._todoElement.querySelector(
+
+    this.deleteButtonElement = this._todoElement.querySelector(
       ".todo__delete-button"
     );
 

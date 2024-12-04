@@ -47,6 +47,8 @@ class FormValidator {
       this._config.submitButtonSelector
     );
 
+    this._toggleButtonState(inputList);
+
     // Add 'input' event listener to each input field
     inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
@@ -67,9 +69,8 @@ class FormValidator {
       );
       errorElement.textContent = ""; // Clear error messages
     });
-    this._buttonElement.disabled = true;
-    this._buttonElement.classList.add(this._inactiveButtonClass); // Disable button
     this._formElement.reset();
+    this._toggleButtonState(inputList); // disables the button if the inputs are empty
   }
 
   // Initialize validation by adding the necessary event listeners
