@@ -51,12 +51,23 @@ class Todo {
   _generateDateElement() {
     this._dateElement = this._todoElement.querySelector(".todo__date");
     const dueDate = new Date(this._date);
+
     if (!isNaN(dueDate)) {
-      this._dateElement.textContent = `Due: ${dueDate.toLocaleString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      })}`;
+      const dueDate = new Date(this._date);
+      if (!isNaN(dueDate)) {
+        this._dateElement.textContent = `Due: ${dueDate.toLocaleString(
+          "en-US",
+          {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          }
+        )}`;
+      } else {
+        this._dateElement.textContent = "Invalid date";
+      }
+    } else {
+      this._dateElement.textContent = ""; // Clear the date field if no date is provided
     }
   }
 
