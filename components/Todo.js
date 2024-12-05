@@ -22,7 +22,7 @@ class Todo {
     // Set up checkbox change handler to toggle completion status
     if (this._todoCheckboxElement) {
       this._todoCheckboxElement.addEventListener("change", () => {
-        this._data.completed = !this.data.completed;
+        this._data.completed = !this._data.completed;
         console.log(this._data.completed);
       });
     } else {
