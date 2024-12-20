@@ -78,11 +78,9 @@ class Todo {
             day: "numeric",
           }
         )}`;
-      } else {
-        this._dateElement.textContent = "Invalid date";
       }
     } else {
-      this._dateElement.textContent = "Invalid date"; // Clear the date field if no date is provided
+      this._dateElement.textContent = ""; // Clear the date field if no date is provided
     }
   }
 

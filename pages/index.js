@@ -40,7 +40,6 @@ const addTodoPopup = new PopupWithForm({
     const name = input.name;
     const dateInput = input.date;
 
-    // Adjust timezone for date
     const date = new Date(dateInput);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 
@@ -49,6 +48,7 @@ const addTodoPopup = new PopupWithForm({
     const newTodo = generateTodo(values);
 
     section.addItem(newTodo);
+    todoCounter.updateTotal(true);
 
     addTodoPopup.close();
   },
@@ -62,6 +62,7 @@ const closeModal = (modal) => {
 
 function handleCheck(completed) {
   todoCounter.updateCompleted(completed);
+  console.log(completed);
 }
 
 function handleDelete(completed) {
