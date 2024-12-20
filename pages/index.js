@@ -65,6 +65,9 @@ function handleCheck(completed) {
 }
 
 function handleDelete(completed) {
+  todoCounter.updateTotal(false);
+  // decrement total count
+
   if (completed) {
     todoCounter.updateCompleted(false);
   }

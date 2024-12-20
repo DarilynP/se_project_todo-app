@@ -9,10 +9,9 @@ class Todo {
   }
 
   _getTemplate() {
-    return this._template = this._templateElement.content
-   .querySelector(".todo")
-   .cloneNode(true);
-
+    return (this._template = this._templateElement.content
+      .querySelector(".todo")
+      .cloneNode(true));
   }
 
   _deleteTodo = () => {
@@ -31,18 +30,18 @@ class Todo {
     } else {
       console.error("Checkbox element not found!");
     }
-  
+
     // Set up delete button handler
     if (this.deleteButtonElement) {
       this.deleteButtonElement.addEventListener("click", () => {
-        this._handleDelete(this._data.id); // Pass the ID to the delete handler
+        this._handleDelete(this._data.completed);
         this._deleteTodo(); // Remove the todo item from the DOM
       });
     } else {
       console.error("Delete button element not found!");
     }
   }
-  
+
   _generateCheckboxElement() {
     this._todoCheckboxElement =
       this._todoElement.querySelector(".todo__completed");
@@ -63,7 +62,6 @@ class Todo {
       this._todoElement = null;
     }
   };
-  
 
   _generateDateElement() {
     this._dateElement = this._todoElement.querySelector(".todo__date");
