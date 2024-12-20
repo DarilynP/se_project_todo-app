@@ -34,9 +34,7 @@ class Popup {
       console.log(evt.target.classList);
 
       // Close modal if clicked on overlay (popup) or the close button
-      if (
-        evt.target.classList.contains("popup") ||
-        evt.target.classList.contains("popup_close")
+      if (evt.target.classList.contains("popup")
       ) {
         this.close();
       }

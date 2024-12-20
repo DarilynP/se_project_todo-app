@@ -5,9 +5,6 @@ class PopupWithForm extends Popup {
     super({ popupSelector });
     this._popupForm = this._popupElement.querySelector(".popup__form");
     this._handleFormSubmit = handleFormSubmit;
-    this._closeButton= this._popupElement.querySelector(".popup__close");
-
-    this._handleEscapeClose =this._handleEscapeClose.bind(this);
   }
 
   getInputValues() {
@@ -28,22 +25,19 @@ class PopupWithForm extends Popup {
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       const inputValues = this.getInputValues();
-      this._handleFormSubmit(inputValues);  // Pass input values to form submit handler
-      this.close();  // Close the modal after submission
-    });
 
-    // // Optional: Handle manual closing
-    // this._popupElement.addEventListener("click", (evt) => {
-    //   if (evt.target === this._popupElement) {  // Close the modal only if the background is clicked
-    //     this.close();
-    //   }
-    // });
+      this._handleFormSubmit(inputValues); // Pass input values to form submit handler
+      this.close(); // Close the modal after submission
+    });
   }
 
   close() {
     // Clear input fields before closing, if desired
-    this._popupForm.reset();  // Clear form inputs when closing the modal
-    super.close();  // Calls close on parent class (Popup) that hides the modal
+    super.close(); // Calls close on parent class (Popup) that hides the modal
+  }
+
+  resetForm() {
+    this._popupForm.reset(); // Clear form inputs when closing the modal
   }
 }
 
