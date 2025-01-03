@@ -31,10 +31,10 @@ class PopupWithForm extends Popup {
     });
   }
 
-  close() {
-    // Clear input fields before closing, if desired
-    super.close(); // Calls close on parent class (Popup) that hides the modal
-  }
+  // close() {
+  //   // Clear input fields before closing, if desired
+  //   super.close(); // Calls close on parent class (Popup) that hides the modal
+  // }
 
   resetForm() {
     this._popupForm.reset(); // Clear form inputs when closing the modal

@@ -28,14 +28,11 @@ const generateTodo = (data) => {
 
 const section = new Section({
   items: initialTodos,
-  renderer: (item) => {
-    const todo = generateTodo(item); // Now it's safe to call generateTodo
-    // return todo.
-    section.addItem(todo); // return the element for appending
-  },
+  renderer: renderTodo,
   containerSelector: ".todos__list",
 });
 
+// render initial todos
 section.renderItems();
 
 const addTodoPopup = new PopupWithForm({
@@ -78,24 +75,24 @@ function handleDelete(completed) {
   }
 }
 
-function handleEscapeClose(evt) {
-  if (evt.key === "Escape") {
-    const openModal = document.querySelector(".popup_visible");
-    if (openModal) {
-      closeModal(openModal);
-      document.removeEventListener("keyup", handleEscapeClose);
-    }
-  }
-}
+// function handleEscapeClose(evt) {
+//   if (evt.key === "Escape") {
+//     const openModal = document.querySelector(".popup_visible");
+//     if (openModal) {
+//       closeModal(openModal);
+//       document.removeEventListener("keyup", handleEscapeClose);
+//     }
+//   }
+// }
 
-addTodoButton.addEventListener("click", () => {
-  addTodoPopup.open();
-  document.addEventListener("keyup", handleEscapeClose);
-});
+// addTodoButton.addEventListener("click", () => {
+//   addTodoPopup.open();
+//   document.addEventListener("keyup", handleEscapeClose);
+// });
 
-addTodoCloseButton.addEventListener("click", () => {
-  addTodoPopup.close();
-});
+// addTodoCloseButton.addEventListener("click", () => {
+//   addTodoPopup.close();
+// });
 
 // addTodoForm.addEventListener("submit", (evt) => {
 //   evt.preventDefault();
