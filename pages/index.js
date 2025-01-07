@@ -75,15 +75,15 @@ function handleDelete(completed) {
   }
 }
 
-function handleEscapeClose(evt) {
-  if (evt.key === "Escape") {
-    const openModal = document.querySelector(".popup_visible");
-    if (openModal) {
-      closeModal(openModal);
-      document.removeEventListener("keyup", handleEscapeClose);
-    }
-  }
-}
+// function handleEscapeClose(evt) {
+//   if (evt.key === "Escape") {
+//     const openModal = document.querySelector(".popup_visible");
+//     if (openModal) {
+//       closeModal(openModal);
+//       document.removeEventListener("keyup", handleEscapeClose);
+//     }
+//   }
+// }
 
 addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();

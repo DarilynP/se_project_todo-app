@@ -14,8 +14,10 @@ class FormValidator {
     );
     if (inputElement.validity.valid) {
       errorElement.textContent = ""; // Clear error
+      errorElement.classList.remove(this._config.errorClass);
     } else {
       errorElement.textContent = errorMessage; // Show error message
+      errorElement.classList.add(this._config.errorClass);
     }
   }
 
