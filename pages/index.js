@@ -87,7 +87,6 @@ function handleDelete(completed) {
 
 addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();
-  document.addEventListener("keyup", handleEscapeClose);
 });
 
 // addTodoCloseButton.addEventListener("click", () => {
